@@ -82,20 +82,28 @@ public class PanelAgregarPelicula extends JPanel {
 	}
 	
 	public void addComboBox() {	
-		JComboBox comboBox = new JComboBox<String>();
+		JComboBox comboBox = new JComboBox<Categoria>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 5;
 		gbc_comboBox.gridy = 3;
 		add(comboBox, gbc_comboBox);
+		
+		comboBox.addItem(new Categoria(0, "Seleccione un genero"));
+		comboBox.addItem(new Categoria(1, "Terror"));
+		comboBox.addItem(new Categoria(2, "Accion"));
+		comboBox.addItem(new Categoria(3, "Suspenso"));
+		comboBox.addItem(new Categoria(4, "Suspenso"));
 	}
 	
 	public void addBotonAceptar() {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
+				
 			}
 		});
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
