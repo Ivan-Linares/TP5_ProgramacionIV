@@ -1,9 +1,14 @@
 package aplicacion_escritorio;
 
 import java.awt.Panel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import javax.swing.JList;
 import java.awt.Font;
 import java.awt.Color;
@@ -31,7 +36,22 @@ public class PanelListarPelicula extends Panel{
 	
 	public void setDefaultListModel(DefaultListModel<Pelicula> listModel)
 	{
-		this.listModel = listModel;
+		this.listModel = ordenarLista(listModel);
 		JList.setModel(this.listModel);
+	}
+	
+	public DefaultListModel<Pelicula> ordenarLista(DefaultListModel<Pelicula> lista)
+	{	
+		ArrayList<Pelicula> listaPeliculasArray = Collections.list(lista.elements()); 
+		Collections.sort(listaPeliculasArray, (Pelicula p1, Pelicula p2) -> p1.getNombre().compareTo(p2.getNombre()));
+		
+		lista.removeAllElements();
+		
+		for(Pelicula peli : listaPeliculasArray)
+		{	
+			lista.addElement(peli);
+		}
+		
+		return lista;
 	}
 }
