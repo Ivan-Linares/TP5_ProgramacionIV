@@ -5,6 +5,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JList;
+import java.awt.Font;
+import java.awt.Color;
 
 public class PanelListarPelicula extends Panel{	
 	private JList<Pelicula> JList;
@@ -14,11 +16,13 @@ public class PanelListarPelicula extends Panel{
 		setLayout(null);
 		
 		JLabel lblPeliculas = new JLabel("Peliculas");
-		lblPeliculas.setBounds(10, 134, 40, 14);
+		lblPeliculas.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblPeliculas.setBounds(10, 134, 75, 14);
 		add(lblPeliculas);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(54, 11, 369, 278);
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBounds(153, 11, 270, 278);
 		add(panel);
 		
 		JList = new JList<Pelicula>();				
