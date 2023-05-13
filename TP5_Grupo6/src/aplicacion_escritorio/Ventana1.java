@@ -2,8 +2,9 @@ package aplicacion_escritorio;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
@@ -17,6 +18,9 @@ import java.awt.event.ActionEvent;
 public class Ventana1 extends JFrame {
 
 	private JPanel contentPane;
+	private DefaultListModel<Pelicula> listModel;
+	private static JList list;
+	
 	JMenuBar menuBar;
 	JMenu mnPeliculas;
 	JMenuItem mnItemAgregar;
@@ -24,6 +28,7 @@ public class Ventana1 extends JFrame {
 
 	public Ventana1() 
 	{
+		listModel = new DefaultListModel<Pelicula>();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -39,25 +44,27 @@ public class Ventana1 extends JFrame {
 		menuBar.add(mnPeliculas);
 		
 		mnItemAgregar = new JMenuItem("Agregar");
-		mnItemAgregar.addActionListener(new eventoBtnAgregarPelicula(contentPane));
+		mnItemAgregar.addActionListener(new eventoBtnAgregarPelicula(contentPane, listModel));
 		mnPeliculas.add(mnItemAgregar);
 		
 		mnItemListar = new JMenuItem("Listar");
-		mnPeliculas.add(mnItemListar);
+		mnItemListar.addActionListener(new eventoBtnListarPelicula(contentPane, listModel));
+		mnPeliculas.add(mnItemListar);		
 		
-
-	}
+	}	
 
 }
 
 class eventoBtnAgregarPelicula implements ActionListener {
 	private JPanel contentPane;
+	private DefaultListModel<Pelicula> listModel;
 	
 	public eventoBtnAgregarPelicula(){		
 	}
 	
-	public eventoBtnAgregarPelicula(JPanel contentPane){	
+	public eventoBtnAgregarPelicula(JPanel contentPane, DefaultListModel listModel){	
 		this.contentPane = contentPane;
+		this.listModel = listModel;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {		
@@ -68,10 +75,39 @@ class eventoBtnAgregarPelicula implements ActionListener {
 		contentPane.removeAll();
 		
 		PanelAgregarPelicula panelAgregarPelicula = new PanelAgregarPelicula();
+		panelAgregarPelicula.setDefaultListModel(listModel);
 		contentPane.add(panelAgregarPelicula);
 		contentPane.repaint();
 		contentPane.revalidate();
 
+	}
+	
+}
+
+class eventoBtnListarPelicula implements ActionListener{
+	private JPanel contentPane;
+	private DefaultListModel<Pelicula> listModel;
+	
+	public eventoBtnListarPelicula() {		
+	}
+	
+	public eventoBtnListarPelicula(JPanel contentPane, DefaultListModel listModel){	
+		this.contentPane = contentPane;
+		this.listModel = listModel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		mostrarPanelListarPelicula();
+	}
+	
+	public void mostrarPanelListarPelicula() {
+		contentPane.removeAll();
+		PanelListarPelicula panelListarPelicula = new PanelListarPelicula();
+		panelListarPelicula.setDefaultListModel(listModel);
+		contentPane.add(panelListarPelicula);
+		contentPane.repaint();
+		contentPane.revalidate();
 	}
 	
 }

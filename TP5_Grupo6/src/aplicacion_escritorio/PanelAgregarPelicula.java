@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.awt.Font;
 
 public class PanelAgregarPelicula extends JPanel {
 	private JTextField textFieldNombrePelicula;
+	private DefaultListModel<Pelicula> listModel;
 	
 	JComboBox comboBox;
 	
@@ -27,6 +29,7 @@ public class PanelAgregarPelicula extends JPanel {
 		addTextField();
 		addComboBox();
 		addBotonAceptar();
+		listModel = new DefaultListModel<Pelicula>();
 	}
 	
 	public void addLayout() {		
@@ -99,7 +102,7 @@ public class PanelAgregarPelicula extends JPanel {
 		comboBox.addItem(new Categoria(0, "Seleccione un genero"));
 		comboBox.addItem(new Categoria(1, "Terror"));
 		comboBox.addItem(new Categoria(2, "Accion"));
-		comboBox.addItem(new Categoria(3, "Suspenso"));
+		comboBox.addItem(new Categoria(3, "Romantica"));
 		comboBox.addItem(new Categoria(4, "Suspenso"));
 	}
 	
@@ -119,8 +122,12 @@ public class PanelAgregarPelicula extends JPanel {
 				{
 					JOptionPane.showMessageDialog(null, textFieldNombrePelicula.getText() + " " + comboBox.getSelectedItem());
 					//Aca habria q grabar en archivo la pelicula
-					
-					cont ++; //asi incrementa el id q le manda a la peli 
+					Pelicula pelicula = new Pelicula();
+					pelicula.setID(id);
+					pelicula.setNombre(textFieldNombrePelicula.getText());
+					pelicula.setCategoria((Categoria)comboBox.getSelectedItem());
+					listModel.addElement(pelicula);
+					cont ++; //asi incrementa el id q le manda a la peli 					
 				}
 			}
 		});
@@ -133,4 +140,8 @@ public class PanelAgregarPelicula extends JPanel {
 		add(btnAceptar, gbc_btnAceptar);
 	}
 	
+	public void setDefaultListModel(DefaultListModel<Pelicula> listModelRecibido)
+	{
+		this.listModel = listModelRecibido;
+	}
 }
