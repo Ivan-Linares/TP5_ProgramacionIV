@@ -33,10 +33,19 @@ public class Pelicula {
 	public Pelicula() {
 		
 	}
+	
+	public Pelicula(Categoria categoria, int iD, String nombre) {
+		super();
+		this.categoria = categoria;
+		ID = iD;
+		this.nombre = nombre;
+	}
 
 	@Override
 	public String toString() {
 		return ID + " - " + nombre + " - " + categoria.getNombre();
 	}
+	
+	
 	
 }

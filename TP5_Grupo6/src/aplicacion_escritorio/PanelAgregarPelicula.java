@@ -1,6 +1,7 @@
 package aplicacion_escritorio;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
@@ -14,6 +15,11 @@ import java.awt.Font;
 
 public class PanelAgregarPelicula extends JPanel {
 	private JTextField textFieldNombrePelicula;
+	
+	JComboBox comboBox;
+	
+	private static int cont = 1;
+	private final int id = cont;
 	
 	public PanelAgregarPelicula() {
 		addLayout();
@@ -42,7 +48,7 @@ public class PanelAgregarPelicula extends JPanel {
 		gbc_lblId.gridy = 1;
 		add(lblId, gbc_lblId);
 	
-		JLabel lblIdPelicula = new JLabel("1");
+		JLabel lblIdPelicula = new JLabel(String.valueOf(this.id));
 		lblIdPelicula.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblIdPelicula = new GridBagConstraints();
 		gbc_lblIdPelicula.anchor = GridBagConstraints.WEST;
@@ -82,7 +88,7 @@ public class PanelAgregarPelicula extends JPanel {
 	}
 	
 	public void addComboBox() {	
-		JComboBox comboBox = new JComboBox<Categoria>();
+		comboBox = new JComboBox<Categoria>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -100,12 +106,25 @@ public class PanelAgregarPelicula extends JPanel {
 	public void addBotonAceptar() {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAceptar.addActionListener(new ActionListener() {
+		
+		btnAceptar.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				if(textFieldNombrePelicula.getText().isEmpty())
+					JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre para la pelicula");
+				else if(((Categoria)comboBox.getSelectedItem()).getID() == 0)
+					JOptionPane.showMessageDialog(null, "Por favor seleccione un genero");
+				else
+				{
+					JOptionPane.showMessageDialog(null, textFieldNombrePelicula.getText() + " " + comboBox.getSelectedItem());
+					//Aca habria q grabar en archivo la pelicula
+					
+					cont ++; //asi incrementa el id q le manda a la peli 
+				}
 			}
 		});
+		
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.fill = GridBagConstraints.BOTH;
 		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
