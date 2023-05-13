@@ -17,6 +17,7 @@ import java.awt.Font;
 public class PanelAgregarPelicula extends JPanel {
 	private JTextField textFieldNombrePelicula;
 	private DefaultListModel<Pelicula> listModel;
+	private JLabel lblIdPelicula;
 	
 	JComboBox comboBox;
 	
@@ -51,7 +52,7 @@ public class PanelAgregarPelicula extends JPanel {
 		gbc_lblId.gridy = 1;
 		add(lblId, gbc_lblId);
 	
-		JLabel lblIdPelicula = new JLabel(String.valueOf(this.id));
+		lblIdPelicula = new JLabel(String.valueOf(this.id));
 		lblIdPelicula.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblIdPelicula = new GridBagConstraints();
 		gbc_lblIdPelicula.anchor = GridBagConstraints.WEST;
@@ -121,13 +122,17 @@ public class PanelAgregarPelicula extends JPanel {
 				else
 				{
 					JOptionPane.showMessageDialog(null, textFieldNombrePelicula.getText() + " " + comboBox.getSelectedItem());
-					//Aca habria q grabar en archivo la pelicula
+					
 					Pelicula pelicula = new Pelicula();
-					pelicula.setID(id);
+					pelicula.setID(Integer.parseInt(lblIdPelicula.getText()));
 					pelicula.setNombre(textFieldNombrePelicula.getText());
 					pelicula.setCategoria((Categoria)comboBox.getSelectedItem());
 					listModel.addElement(pelicula);
-					cont ++; //asi incrementa el id q le manda a la peli 					
+					cont ++; //asi incrementa el id q le manda a la peli
+					
+					textFieldNombrePelicula.setText("");
+					comboBox.setSelectedIndex(0);
+					lblIdPelicula.setText(String.valueOf(cont));
 				}
 			}
 		});
